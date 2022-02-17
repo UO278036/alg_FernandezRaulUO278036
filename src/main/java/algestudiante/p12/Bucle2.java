@@ -15,7 +15,7 @@ public class Bucle2 {
 		long t1, t2;
 		int nVeces = Integer.parseInt(arg[0]);
 
-		for (int n = 512; n <= 100_000; n *= 2) {
+		for (int n = 8; n <= 100_000; n *= 2) {
 			long c = 0;
 			t1 = System.currentTimeMillis();
 
@@ -25,8 +25,7 @@ public class Bucle2 {
 
 			t2 = System.currentTimeMillis();
 
-			System.out.println(c + "**n=" + n + "**TIEMPO=" + (t2 - t1)
-					+ "**nVeces=" + nVeces);
+			System.out.println(n+"\t"+(t2-t1)+"\t"+c);
 		} // for
 
 	} // main
