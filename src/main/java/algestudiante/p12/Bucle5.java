@@ -34,7 +34,7 @@ public class Bucle5 {
 
 			System.out.println(n+"\t"+(t2-t1)+"\t"+c);
 
-		} // for
+		} 
 
-	} // main
-} // class
+	} 
+} 
