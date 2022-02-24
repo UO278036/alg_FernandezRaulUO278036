@@ -18,7 +18,7 @@ public class Incognita {
 		long t1, t2;
 		int nVeces = Integer.parseInt(arg[0]);
 
-		for (int n = 1; n <= 100_000; n *= 2) {
+		for (int n = 8; n <= 100_000; n *= 2) {
 			t1 = System.currentTimeMillis();
 
 			for (int repeticiones = 1; repeticiones <= nVeces; repeticiones++) {

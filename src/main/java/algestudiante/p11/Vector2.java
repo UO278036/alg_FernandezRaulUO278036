@@ -10,6 +10,7 @@ public class Vector2 {
 		
 		long t1 = System.currentTimeMillis();
 					
+		@SuppressWarnings("unused")
 		int s=Vector1.suma(v);
 		
 		long t2 = System.currentTimeMillis();

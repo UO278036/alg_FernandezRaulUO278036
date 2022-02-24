@@ -12,7 +12,8 @@ public class Vector3 {
 			
 			 t1 = System.currentTimeMillis();
 					
-			 int s=Vector1.suma(v);
+			 @SuppressWarnings("unused")
+			int s=Vector1.suma(v);
 		
 			 t2 = System.currentTimeMillis();
 					
