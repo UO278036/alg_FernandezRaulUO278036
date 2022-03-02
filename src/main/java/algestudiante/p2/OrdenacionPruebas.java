@@ -5,36 +5,36 @@ public class OrdenacionPruebas {
 	/** Este programa sirve para probar todos los algoritmos de ordenacion
 	 * */
 	public static void main (String arg []){
-		int n= Integer.parseInt(arg[0]);  //tama帽o del problema
+		int n= Integer.parseInt(arg[0]);  //tama駉 del problema
 		
 		
-		// Prueba ordenaci贸n: Insercion
-//		pruebaAlgoritmoOrdenacion(new Insercion(n));
-//		
-//		// Prueba ordenaci贸n: Seleccion
-//		pruebaAlgoritmoOrdenacion(new Seleccion(n));
-//		
-//		// Prueba ordenaci贸n: Burbuja
-//		pruebaAlgoritmoOrdenacion(new Burbuja(n));
+		// Prueba ordenaci髇: Insercion
+		pruebaAlgoritmoOrdenacion(new Insercion(n));
 		
-		// Prueba ordenaci贸n: RapidoFatal
-//		pruebaAlgoritmoOrdenacion(new RapidoFatal(n));
+		// Prueba ordenaci髇: Seleccion
+		pruebaAlgoritmoOrdenacion(new Seleccion(n));
 		
-//		// Prueba ordenaci贸n: RapidoCentral
+		// Prueba ordenaci髇: Burbuja
+		pruebaAlgoritmoOrdenacion(new Burbuja(n));
+		
+		// Prueba ordenaci髇: RapidoFatal
+		pruebaAlgoritmoOrdenacion(new RapidoFatal(n));
+		
+		// Prueba ordenaci髇: RapidoCentral
 		pruebaAlgoritmoOrdenacion(new RapidoCentral(n));
-//		
-//		// Prueba ordenaci贸n: RapidoMediana
-//		pruebaAlgoritmoOrdenacion(new RapidoMediana(n));
+		
+		// Prueba ordenaci髇: RapidoMediana
+		pruebaAlgoritmoOrdenacion(new RapidoMediana(n));
 	}
 	
 	public static void pruebaAlgoritmoOrdenacion(Vector v) {
-		System.out.println(" \n\nPrueba ordenaci贸n: "+v.getNombre());
+		System.out.println(" \n\nPrueba ordenaci髇: "+v.getNombre());
 		System.out.println ("Ordenar Vector ya ordenado");
 		v.ordenDirecto();
 		System.out.println ("Vector a ordenar es:");
 		v.escribe(System.out);	
 		v.ordenar();
-		System.out.println ("Vector despu茅s de ordenar");
+		System.out.println ("Vector despu閟 de ordenar");
 		v.escribe(System.out);
 
 		System.out.println ("Ordenar Vector inverso");
@@ -42,7 +42,7 @@ public class OrdenacionPruebas {
 		System.out.println ("Vector a ordenar es:");
 		v.escribe(System.out);	
 		v.ordenar();
-		System.out.println ("Vector despu茅s de ordenar");
+		System.out.println ("Vector despu閟 de ordenar");
 		v.escribe(System.out);
 
 		System.out.println ("Ordenar Vector aleatorio");
@@ -50,7 +50,7 @@ public class OrdenacionPruebas {
 		System.out.println ("Vector a ordenar es:");
 		v.escribe(System.out);	
 		v.ordenar();
-		System.out.println ("Vector despu茅s de ordenar");
+		System.out.println ("Vector despu閟 de ordenar");
 		v.escribe(System.out);
 	}
 	

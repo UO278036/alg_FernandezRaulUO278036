@@ -37,8 +37,19 @@ public class RapidoMediana extends Vector
 	 */
 	private int particion(int iz, int de) 
 	{
-		// TODO: Implementación del método de partición
-		return -1;
+		int i, pivote;
+		intercambiar(getMediana3(iz, de, (iz+de)/2), iz);
+		
+		pivote = elements[iz];
+		i = iz;
+		for (int s = iz+1; s <= de; s++) {
+			if(elements[s] <= pivote) {
+				i++;
+				intercambiar(i, s);
+			}
+		}
+		intercambiar(iz, i);
+		return i;
 	}
 
 	/**
@@ -47,13 +58,18 @@ public class RapidoMediana extends Vector
 	 */  
 	private void rapirec (int iz, int de) 
 	{
-		// TODO: Implementación del método de creación de la partición
+		int m;
+		if (de > iz) {
+			m = particion(iz,de);
+			rapirec(iz,m-1);
+			rapirec(m+1,de);
+		}
 	}
 
 
 	@Override
 	public void ordenar() {
-		// TODO: Implementación del método de ordenación
+		rapirec(0,this.elements.length-1);	
 		
 	}
 

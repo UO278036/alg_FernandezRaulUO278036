@@ -14,15 +14,24 @@ public class Insercion extends Vector
 	}
 
 	/**
-	 * Ordenaci贸n por inserci贸n directa
+	 * Ordenaci髇 por inserci髇 directa
 	 */
 	@Override
 	public void ordenar() {
-		// TODO: Implementaci贸n del m茅todo de ordenaci贸n
+		int n = elements.length;
+		for (int i = 1; i < n; i++) {
+			int x = elements[i];
+			int j = i -1;
+			while (j >= 0 && x < elements[j]) {
+				elements[j +1] = elements[j];
+				j = j-1;
+			}
+			elements[j +1] = x;
+		}
 	} 
 
 	@Override
 	public String getNombre() {
-		return "Inserci贸n directa";
+		return "Inserci髇 directa";
 	} 
 } 

@@ -18,7 +18,17 @@ public class Seleccion extends Vector
 	 */
 	@Override
 	public void ordenar() {
-		// TODO: Implementación del método de ordenación
+		int n = elements.length;
+		int posmin;
+		for (int i = 0; i < n-1; i++) {
+			posmin = i;
+			for (int j = i+1; j < n; j++) {
+				if (elements[j] < elements[posmin]) {
+					posmin = j;
+				}
+			}
+			intercambiar(i, posmin);
+		}
 	}  
 
 	@Override
