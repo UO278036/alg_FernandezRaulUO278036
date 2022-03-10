@@ -6,6 +6,7 @@ import algestudiante.p2.Vector;
 	con un algoritmo de los "malos" (cuadrático)·
 	es la SELECCION
  */
+@SuppressWarnings("unused")
 public class Seleccion extends Vector
 {
 	public Seleccion(int nElementos) {

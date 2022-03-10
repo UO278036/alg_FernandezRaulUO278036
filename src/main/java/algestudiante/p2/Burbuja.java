@@ -1,6 +1,6 @@
 package algestudiante.p2 ;
 
-import algestudiante.p2.Vector;
+
 
 
 public class Burbuja extends Vector
