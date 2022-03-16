@@ -1,6 +1,6 @@
-package algestudiante.p2;
+package algUO278036.p2;
 
-import algestudiante.p2.Vector;
+import algUO278036.p2.Vector;
 
 /** Este programa sirve para ordenar n elementos
 	con un algoritmo de los "malos" (cuadrático)·

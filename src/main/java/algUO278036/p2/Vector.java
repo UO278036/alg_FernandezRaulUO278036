@@ -1,4 +1,4 @@
-package algestudiante.p2;
+package algUO278036.p2;
 
 import java.io.PrintStream;
 import java.util.Random ;

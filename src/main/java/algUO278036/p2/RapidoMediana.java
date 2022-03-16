@@ -1,4 +1,4 @@
-package algestudiante.p2;
+package algUO278036.p2;
 
 
 /** Este programa sirve para ordenar n elementos

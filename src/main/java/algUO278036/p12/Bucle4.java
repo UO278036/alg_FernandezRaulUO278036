@@ -1,13 +1,15 @@
-package algestudiante.p12;
+package algUO278036.p12;
 
-public class Bucle3 {
+public class Bucle4 {
 
-	public static long bucle3(int n)
+	public static long bucle4(int n)
 	{
 		long cont = 0;
-		for (int i = 1; i <= n; i++)
-			for (int j = 1; j <= i; j++)
-				cont++;
+		for (int i=1; i<=n;i++)
+			 for (int j=1; j<=i; j++)
+				 for (int k=1; k<=j; k++)
+					 for (int l=1; l<=k; l++)
+						 cont++;
 		return cont;
 
 	}
@@ -21,7 +23,7 @@ public class Bucle3 {
 			t1 = System.currentTimeMillis();
 
 			for (int repeticiones = 1; repeticiones <= nVeces; repeticiones++) {
-				c += bucle3(n);
+				c += bucle4(n);
 			}
 
 			t2 = System.currentTimeMillis();

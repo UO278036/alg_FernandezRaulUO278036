@@ -14,7 +14,7 @@ public class Tromino {
         int nVeces= Integer.parseInt (arg [0]);
         boolean b=true;
 
-        for (int n=4;n<=10000;n*=2)
+        for (int n=16;n<=1000000;n*=2)
         {
             t = new Tromino(n, 1, 1);
             t1 = System.currentTimeMillis ();
@@ -102,36 +102,39 @@ public class Tromino {
 			int cuadrante1y = m2;
 			int cuadrante2y = m2+1;
 			int cuadrante3y = m2;
-			int cuadrante4y = m2+1;		
+			int cuadrante4y = m2+1;
 			if(x <= m1 && y <=m2) {
-				cuadrante1x = x;
-				cuadrante1y = y;
 				tablero[m1][m2+1] = cas_rellena;
 				tablero[m1+1][m2] = cas_rellena;
 				tablero[m1+1][m2+1] = cas_rellena;
 				cas_rellena = cas_rellena ++;
-											
-			}else if (x <= m1 && y > m2) {
 				cuadrante2x = x;
 				cuadrante2y = y;
+											
+			}
+			else if (x <= m1 && y > m2) {
 				tablero[m1][m2] = cas_rellena;
 				tablero[m1+1][m2] = cas_rellena;
 				tablero[m1+1][m2+1] = cas_rellena;
 				cas_rellena = cas_rellena ++;
-			}else if (x > m1 && y <= m2) {
-				cuadrante3x = x;
-				cuadrante3y = y;
+				cuadrante2x = x;
+				cuadrante2y = y;
+			}
+			else if (x > m1 && y <= m2) {
 				tablero[m1][m2] = cas_rellena;
 				tablero[m1][m2+1] = cas_rellena;
 				tablero[m1+1][m2+1] = cas_rellena;
 				cas_rellena = cas_rellena ++;
-			}else {
-				cuadrante4x = x;
-				cuadrante4y = y;
+				cuadrante3x = x;
+				cuadrante3y = y;
+			}
+			else {
 				tablero[m1][m2] = cas_rellena;
 				tablero[m1+1][m2] = cas_rellena;
 				tablero[m1][m2+1] = cas_rellena;
 				cas_rellena = cas_rellena ++;	
+				cuadrante4x = x;
+				cuadrante4y = y;
 				
 			}
 			resuelveTromino(mCuadrante,cuadrante1x,cuadrante1y,cordx,cordy);

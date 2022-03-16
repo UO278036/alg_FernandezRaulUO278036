@@ -11,7 +11,7 @@
 	alg77777777\p1. 
  */
 
-package algestudiante.p11 ;
+package algUO278036.p11 ;
 
 import java.util.Random ; //es la clase que genera números aleatorios
 
