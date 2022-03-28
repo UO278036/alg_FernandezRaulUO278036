@@ -16,7 +16,10 @@ public class Tromino {
 
         for (int n=16;n<=1000000;n*=2)
         {
+        	
             t = new Tromino(n, 1, 1);
+           
+            
             t1 = System.currentTimeMillis ();
 
             for (int repeticiones=1; repeticiones<=nVeces;repeticiones++)
@@ -32,7 +35,7 @@ public class Tromino {
     }
 	
 	public Tromino(int tam,int x,int y) {
-		//Creamos el tablero del tamaño pasado como parametro
+		//Creamos el tablero del tamaï¿½o pasado como parametro
 		tablero = new int[tam][tam];
 		//Rellenamos el tablero de casillas vacias -1
 		for(int i=0; i < tam;i++) {	
