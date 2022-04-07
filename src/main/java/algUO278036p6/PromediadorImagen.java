@@ -149,6 +149,22 @@ public class PromediadorImagen {
 			}
 		}
 	}
+	public void backTracking(int nivel) 
+	{
+		if(nivel == ){
+			
+		}else {
+			for(int i=0; i< 3;i++) {
+				if(){
+					
+				}
+			}
+		}
+		
+		
+		
+	}
+	
 	
 	/**
 	 * Algoritmo backtracking con condición balanceo 

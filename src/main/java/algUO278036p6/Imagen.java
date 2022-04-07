@@ -130,7 +130,7 @@ public class Imagen {
 	
 	/** 
 	 * Calcula la Correlación cruzada cero normalizada (Zero Mean Normalized Cross-Correlation, ZNCC)
-	 * con respecto a otra image 
+	 * con respecto a otra image
 	 * @param img imagen de referencia para el cálculo de la ZNCC(img, this)
 	 * @return
 	 */
