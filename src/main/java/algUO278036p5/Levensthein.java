@@ -21,18 +21,23 @@ public class Levensthein {
 		long t1,t2;
 		int nVeces= Integer.parseInt (arg [0]);
 		Levensthein lev;
-		for (int n=100;n<=1000000;n*=2)
-        {
-			//generadorPalabras(n)
-			lev = new Levensthein(generadorPalabras(n),generadorPalabras(n));	
-			t1 = System.currentTimeMillis ();
-			for (int repeticiones=1; repeticiones<=nVeces;repeticiones++) 
-			{
-				lev.distanciaLevensthein();
-			}
-			t2 = System.currentTimeMillis ();
-			System.out.println (" n="+n+ "TIEMPO="+(t2-t1)+"nVeces="+nVeces);
-        }
+
+		lev = new Levensthein("LOCOS","LOCA");
+		System.out.println("Resultado: "+lev.distanciaLevensthein());
+		lev.show();
+		
+//		for (int n=100;n<=1000000;n*=2)
+//        {
+//			//generadorPalabras(n)
+//			lev = new Levensthein(generadorPalabras(n),generadorPalabras(n));	
+//			t1 = System.currentTimeMillis ();
+//			for (int repeticiones=1; repeticiones<=nVeces;repeticiones++) 
+//			{
+//				lev.distanciaLevensthein();
+//			}
+//			t2 = System.currentTimeMillis ();
+//			System.out.println (" n="+n+ "TIEMPO="+(t2-t1)+"nVeces="+nVeces);
+//        }
     }
 	
 	/**
