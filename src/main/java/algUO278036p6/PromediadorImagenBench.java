@@ -8,39 +8,73 @@ import java.nio.file.Paths;
 public class PromediadorImagenBench {
 	
 	// Ajustes del banco de pruebas
-	private static String REAL_IMG = Paths.get("").toAbsolutePath().toString() + "/algUO278036p6/einstein_1_256.png";
-	private static String BAD_IMG = Paths.get("").toAbsolutePath().toString() + "/algUO278036p6/einstein_1_256.png";
-	private static String OUT_DIR_G = Paths.get("").toAbsolutePath().toString() + "/algUO278036p6/out_g/";
-	private static String OUT_DIR_B = Paths.get("").toAbsolutePath().toString() + "/algUO278036p6/out_bt";
+	private static String REAL_IMG =  "target/einstein_1_256.png";
+	private static String BAD_IMG =  "target/einstein_1_256.png";
+	private static String OUT_DIR_G =  "target/out_g/";
+	private static String OUT_DIR_B =  "target/out_bt";
 	private static int N_IMGS = 13; 
 	private static double PORCENTAJE_BAD = 25; // %
 	private static double S_NOISE = 5.0; // Nivel de ruido - desvición estándar de una distrubución Gaussiana
 		
-	public static void main(String[] args) {
-		
-		int n_real, n_bad;
-		PromediadorImagen img_avger;
-		
-		// Generación y testeo de un conjunto de imágenes
-		n_bad = (int) ((PORCENTAJE_BAD/100.)*N_IMGS);
-		n_real = N_IMGS - n_bad;
-		img_avger = new PromediadorImagen(REAL_IMG, BAD_IMG, n_real, n_bad, S_NOISE);
-				
-		System.out.print("TESTING VORAZ:\n");
-		img_avger.splitSubsetsGreedy(N_IMGS);
-		System.out.printf("  -ZNCC: %f\n",  img_avger.zncc());
-		System.out.printf("  -Contador: %d\n",  img_avger.getCounter());
-		img_avger.saveResults(OUT_DIR_G);
-			
-		System.out.print("TESTING BACKTRACKING CON BALANCEO:\n");
-		img_avger.splitSubsetsBacktracking(1);
-		System.out.printf("  -ZNCC: %f\n",  img_avger.zncc());
-		System.out.printf("  -Contador: %d\n",  img_avger.getCounter());
-		img_avger.saveResults(OUT_DIR_B);
+//	public static void main(String[] args) {
+//		
+//		int n_real, n_bad;
+//		PromediadorImagen img_avger;
+//		
+//		// Generación y testeo de un conjunto de imágenes
+//		n_bad = (int) ((PORCENTAJE_BAD/100.)*N_IMGS);
+//		n_real = N_IMGS - n_bad;
+//		img_avger = new PromediadorImagen(REAL_IMG, BAD_IMG, n_real, n_bad, S_NOISE);
+//				
+//		System.out.print("TESTING VORAZ:\n");
+//		for(int i=0; i< 1000; i++) {
+//		img_avger.splitSubsetsGreedy(N_IMGS);
+//		}
+//		System.out.printf("  -ZNCC: %f\n",  img_avger.zncc());
+//		System.out.printf("  -Contador: %d\n",  img_avger.getCounter());
+//		img_avger.saveResults(OUT_DIR_G);
+//			
+//		System.out.print("TESTING BACKTRACKING CON BALANCEO:\n");
+//
+//		long t1,t2;
+//		t1 = System.currentTimeMillis();
+//		for(int i=0; i< 1000; i++) {
+//			img_avger.splitSubsetsBacktracking(1);
+//		}
+//		t2 = System.currentTimeMillis();
+//		
+//		System.out.printf("  -ZNCC: %f\n",  img_avger.zncc());
+//		System.out.printf("  -Contador: %d\n",  img_avger.getCounter());
+//		img_avger.saveResults(OUT_DIR_B);
+//
+//		// Medidas
+//		// TODO
+//	}
+	
+	public static void main(String[] arg) {
+        long t1, t2;
+        int nVeces = Integer.parseInt(arg[0]);
+        int n_real, n_bad;
+        PromediadorImagen img_avger;
+        System.out.println("N\tTiempo\tZNCC");
+        for (int n = 2; n <= 1_000; n++) {
 
-		// Medidas
-		// TODO
-	}
+            n_bad = (int) ((PORCENTAJE_BAD/100.)*n);
+            n_real = n - n_bad;
+
+            img_avger = new PromediadorImagen(REAL_IMG, BAD_IMG, n_real, n_bad, S_NOISE);
+            img_avger.splitSubsetsGreedy(N_IMGS);
+            t1 = System.currentTimeMillis();
+
+            for (int repeticiones = 1; repeticiones <= nVeces; repeticiones++) {
+                img_avger.splitSubsetsGreedy(n);
+            }
+            t2 = System.currentTimeMillis();
+
+            System.out.println(n+"\t"+(t2-t1)+"\t"+img_avger.zncc());
+
+        }
+    }
 
 }
 

@@ -115,103 +115,141 @@ public class PromediadorImagen {
 	 * Greedy algorithm: random instances for each half, the best one is the final solution    
 	 * @n_tries numero de intentos aleatorios     
 	 */
-	public void splitSubsetsGreedy(int n_tries) {	
-		Imagen prueba;
-		
-		int[] rand_index = this.randomIndexes(2);
-		int numero = (int) (Math.random() * 3);
-		prueba = new Imagen(this.width, this.height);
-		prueba.addSignal(this.real_img); // añadir los valores de los píxeles
-		for(int i=0; i < n_tries;i++) {
-			switch(numero) 
-			{	
-				// elimina cuadrante arrizq + arder
-				case 0:				
-					prueba.suppressRegion(0);	
-					prueba.suppressRegion(1);
-					this.dataset[rand_index[i]] = prueba; // incluir la imagne en una posción aleatorio de dataset
-					
-				// elimina cuadrante arriz + abjizq
-				case 1:		
-					prueba.suppressRegion(0);	
-					prueba.suppressRegion(2);
-					this.dataset[rand_index[i]] = prueba; 
-				//elimina cuadrante abjizq + abjder
-				case 2:
-					prueba.suppressRegion(2);
-					prueba.suppressRegion(3);	
-					this.dataset[rand_index[i]] = prueba; 
-				// elimina cuadrante arrder + abjder
-				case 3:
-					prueba.suppressRegion(1);
-					prueba.suppressRegion(3);	
-					this.dataset[rand_index[i]] = prueba; 
-			}
-		}
-	}
+
+	public void splitSubsetsGreedy(int n_tries) {
+	        counter = 0;
+	        this.max_zncc = -1;
+	        Random r = new Random();
+	        int[] vector = new int[dataset.length];
+	        Imagen grupo1P = new Imagen(width, height);
+	        Imagen grupo2P = new Imagen(width, height);
+	        for (int j = 0; j < n_tries; j++) {
+	            grupo1P = new Imagen(width, height);
+	            grupo2P = new Imagen(width, height);
+	            counter++;
+	            for (int i = 0; i < vector.length; i++) {
+	                vector[i] = r.nextInt(3);
+	                if (vector[i] == 1) {
+	                    grupo1P.addSignal(this.dataset[i]);
+	                }
+	                if (vector[i] == 2) {
+	                    grupo2P.addSignal(this.dataset[i]);
+	                }
+	            }
+	            if (grupo2P.zncc(grupo1P) > max_zncc) {
+	                half1_img = grupo1P.copy();
+	                half2_img = grupo2P.copy();
+	                max_zncc = grupo2P.zncc(grupo1P);
+	                bestSol = vector.clone();
+	            }
+	        }
+	        this.avg_img = new Imagen(width, height);
+	        this.avg_img.addSignal(grupo2P);
+	        this.avg_img.addSignal(grupo1P);
+	  }
+	
 	public void backTracking(int nivel) 
 	{
-		if(nivel == ){
-			
-		}else {
-			for(int i=0; i< 3;i++) {
-				if(){
-					
-				}
-			}
-		}
-		
-		
+
 		
 	}
 	
+    private void recursivoBactracking(int nivel) {
+        if (nivel == dataset.length) {
+            Imagen grupo1P = new Imagen(width, height);
+            Imagen grupo2P = new Imagen(width, height);
+            Random r = new Random();
+            for (int i = 0; i < sol.length; i++) {
+                sol[i] = r.nextInt(3);
+                if (sol[i] == 1) {
+                    grupo1P.addSignal(this.dataset[i]);
+                }
+                if (sol[i] == 2) {
+                    grupo2P.addSignal(this.dataset[i]);
+                }
+            }
+            if (grupo2P.zncc(grupo1P) > max_zncc) {
+                half1_img = grupo1P.copy();
+                half2_img = grupo2P.copy();
+                max_zncc = grupo2P.zncc(grupo1P);
+                bestSol = sol.clone();
+            }
+            avg_img.addSignal(half1_img);
+            avg_img.addSignal(half2_img);
+        } else {
+            sol[nivel] = 0;
+            counter++;
+            recursivoBactracking(nivel + 1);
+            sol[nivel] = 1;
+            counter++;
+            recursivoBactracking(nivel + 1);
+            sol[nivel] = 2;
+            counter++;
+            recursivoBactracking(nivel + 1);
+            nivel = nivel + 1;
+        }
+    }
 	
 	/**
 	 * Algoritmo backtracking con condición balanceo 
 	 * @max_unbalancing: (condición de poda) determina la diferencia máxima en el número de imágenes
 	 *                   entre los dos subconjuntos              
 	 */
-	public void splitSubsetsBacktracking(int max_unbalancing) {
-		Imagen prueba;
-		
-		int[] rand_index = this.randomIndexes(2);
-		int numero = (int) (Math.random() * 3);
-		prueba = new Imagen(this.width, this.height);
-		
-		prueba.addSignal(this.real_img); // añadir los valores de los píxeles
-		for(int i=0; i < 1;i++) {
-			switch(numero) 
-			{	
-				// elimina cuadrante arrizq + arder
-				case 0:				
-					prueba.suppressRegion(0);	
-					prueba.suppressRegion(1);
-					this.dataset[rand_index[i]] = prueba; // incluir la imagne en una posción aleatorio de dataset
-					
-				// elimina cuadrante arriz + abjizq
-				case 1:		
-					prueba.suppressRegion(0);	
-					prueba.suppressRegion(2);
-					this.dataset[rand_index[i]] = prueba; 
-				//elimina cuadrante abjizq + abjder
-				case 2:
-					prueba.suppressRegion(2);
-					prueba.suppressRegion(3);	
-					this.dataset[rand_index[i]] = prueba; 
-				// elimina cuadrante arrder + abjder
-				case 3:
-					prueba.suppressRegion(1);
-					prueba.suppressRegion(3);	
-					this.dataset[rand_index[i]] = prueba; 
-			}
-		}
-	}
+    private void recursivoBactrackingPoda(int nivel, int balanceo, int nrama1, int nrama2, int nrama3) {
+        if (nivel == dataset.length) {
+            Imagen grupo1P = new Imagen(width, height);
+            Imagen grupo2P = new Imagen(width, height);
+            Random r = new Random();
+            for (int i = 0; i < sol.length; i++) {
+                sol[i] = r.nextInt(3);
+                if (sol[i] == 1) {
+                    grupo1P.addSignal(this.dataset[i]);
+                }
+                if (sol[i] == 2) {
+                    grupo2P.addSignal(this.dataset[i]);
+                }
+            }
+            if (grupo2P.zncc(grupo1P) > max_zncc) {
+                half1_img = grupo1P.copy();
+                half2_img = grupo2P.copy();
+                max_zncc = grupo2P.zncc(grupo1P);
+                bestSol = sol.clone();
+            }
+            avg_img.addSignal(half1_img);
+            avg_img.addSignal(half2_img);
+        } else {
+            if (Math.abs(nrama1 - nrama2) < balanceo && Math.abs(nrama3 - nrama1) < balanceo) {
+                sol[nivel] = 0;
+                counter++;
+                recursivoBactrackingPoda(nivel + 1, balanceo, nrama1 + 1, nrama2, nrama3);
+            } if (Math.abs(nrama3 - nrama2) < balanceo) {
+                sol[nivel] = 1;
+                counter++;
+                recursivoBactrackingPoda(nivel + 1, balanceo, nrama1, nrama2 + 1, nrama3);
+            }
+            sol[nivel] = 2;
+            counter++;
+            recursivoBactrackingPoda(nivel + 1, balanceo, nrama1, nrama2, nrama3 + 1);
+            nivel = nivel + 1;
+            recursivoBactrackingPoda(nivel, balanceo, nrama1, nrama2, nrama3);
+        }
+    }
+    
+    public void splitSubsetsBacktracking(int max_unbalancing) {
+        counter = 1;
+        max_zncc = 0;
+        recursivoBactrackingPoda(0, max_unbalancing, 0, 0, 0);
+    }
+
 
 	/**
 	 * Algoritmo backtracking sin condición de balanceo.           
 	 */
 	public void splitSubsetsBacktracking() {
-		// TODO
+		this.counter = 1;
+		this.max_zncc = 0;
+		int nivel = 0;
+		recursivoBactracking(nivel);	
 	}
 
 }
