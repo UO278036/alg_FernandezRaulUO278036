@@ -14,7 +14,7 @@ public class Tromino {
         int nVeces= Integer.parseInt (arg [0]);
         boolean b=true;
 
-        for (int n=16;n<=1000000;n*=2)
+        for (int n=16;n<=60;n*=2)
         {
         	
             t = new Tromino(n, 1, 1);
@@ -25,6 +25,7 @@ public class Tromino {
             for (int repeticiones=1; repeticiones<=nVeces;repeticiones++)
             { 
                 t.resuelveTromino(n,1,1,0,0);
+                t.Show();
             } 
 
             t2 = System.currentTimeMillis ();
