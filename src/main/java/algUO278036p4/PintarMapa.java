@@ -75,7 +75,6 @@ public class PintarMapa{
 	    			for(int f=0; f<fronteras.length ; f++) {
 	    				if(colorPais.get(fronteras[f]) != null && colores.get(j) == colorPais.get(fronteras[f])) {
 	    					condicion = false;
-	    					
 	    					break;
 	    				}
 	    				
