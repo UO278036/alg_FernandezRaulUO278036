@@ -3,7 +3,7 @@ package algUO278036p4;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import algUO278036p32.Tromino;
+
 
 public class PintarMapa{
     
