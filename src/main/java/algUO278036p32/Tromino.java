@@ -7,31 +7,36 @@ public class Tromino {
 	private static final int CASILLA_VACIA = -1;
 	private int cas_rellena = 1;
 	
+//	public static void main (String arg []) 
+//    {
+//        Tromino t;
+//        long t1,t2;
+//        int nVeces= Integer.parseInt (arg [0]);
+//        boolean b=true;
+//
+//        for (int n=16;n<=1000000;n*=2)
+//        {
+//        	
+//            t = new Tromino(n, 1, 1);
+//           
+//            
+//            t1 = System.currentTimeMillis ();
+//
+//            for (int repeticiones=1; repeticiones<=nVeces;repeticiones++)
+//            { 
+//                t.resuelveTromino(n,1,1,0,0);
+//            } 
+//
+//            t2 = System.currentTimeMillis ();
+//
+//            System.out.println (b+" n="+n+ "TIEMPO="+(t2-t1)+"nVeces="+nVeces);
+//          
+//        }
+//    }
 	public static void main (String arg []) 
     {
-        Tromino t;
-        long t1,t2;
-        int nVeces= Integer.parseInt (arg [0]);
-        boolean b=true;
-
-        for (int n=16;n<=1000000;n*=2)
-        {
-        	
-            t = new Tromino(n, 1, 1);
-           
-            
-            t1 = System.currentTimeMillis ();
-
-            for (int repeticiones=1; repeticiones<=nVeces;repeticiones++)
-            { 
-                t.resuelveTromino(n,1,1,0,0);
-            } 
-
-            t2 = System.currentTimeMillis ();
-
-            System.out.println (b+" n="+n+ "TIEMPO="+(t2-t1)+"nVeces="+nVeces);
-          
-        }
+        Tromino t = new Tromino(8,2,1);
+        t.resuelveTromino(8, 2, 1, 0, 0);
     }
 	
 	public Tromino(int tam,int x,int y) {
@@ -87,11 +92,12 @@ public class Tromino {
 //				}
 //			}
 			int punto = tablero[x][y];
-			tablero[m1][m2]=1;
-			tablero[m1][m2+1]=1;
-			tablero[m1+1][m2]=1;
-			tablero[m1+1][m2+1]=1;
+			tablero[m1][m2]=cas_rellena;
+			tablero[m1][m2+1]=cas_rellena;
+			tablero[m1+1][m2]=cas_rellena;
+			tablero[m1+1][m2+1]=cas_rellena;
 			tablero[x][y]=punto;
+			cas_rellena = cas_rellena ++;
 			
 		}
 
@@ -106,13 +112,15 @@ public class Tromino {
 			int cuadrante2y = m2+1;
 			int cuadrante3y = m2;
 			int cuadrante4y = m2+1;
+			
 			if(x <= m1 && y <=m2) {
+				
 				tablero[m1][m2+1] = cas_rellena;
 				tablero[m1+1][m2] = cas_rellena;
 				tablero[m1+1][m2+1] = cas_rellena;
 				cas_rellena = cas_rellena ++;
-				cuadrante2x = x;
-				cuadrante2y = y;
+				cuadrante1x = x;
+				cuadrante1y = y;
 											
 			}
 			else if (x <= m1 && y > m2) {
@@ -141,9 +149,13 @@ public class Tromino {
 				
 			}
 			resuelveTromino(mCuadrante,cuadrante1x,cuadrante1y,cordx,cordy);
+			Show();
 			resuelveTromino(mCuadrante,cuadrante2x,cuadrante2y,cordx,cordy+mCuadrante);
+			Show();
 			resuelveTromino(mCuadrante,cuadrante3x,cuadrante3y,cordx+mCuadrante,cordy);
-			resuelveTromino(mCuadrante,cuadrante4x,cuadrante4y,cordx+mCuadrante,cordy+mCuadrante);			
+			Show();
+			resuelveTromino(mCuadrante,cuadrante4x,cuadrante4y,cordx+mCuadrante,cordy+mCuadrante);		
+			Show();
 		}  			
 	}
 		
