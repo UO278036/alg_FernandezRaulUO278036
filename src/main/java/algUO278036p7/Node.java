@@ -1,4 +1,4 @@
-package topics.branchandbound.util;
+package algUO278036p7;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -24,6 +24,7 @@ public abstract class Node implements Comparable<Node> {
     	ID = UUID.randomUUID();
 	}
 	
+
 	/**
 	 * Getter for depth
 	 * @return The depth variable
