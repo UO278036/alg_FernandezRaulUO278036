@@ -54,6 +54,8 @@ public class PromediadorImagen {
 			if (region == 3) region = 0;
 			else region++;
 		}
+		
+		
 		region = 0;
 		for (int i=n_real; i<n_real+n_bad; i++) { // bucle para las imágenes malas
 			hold_img = new Imagen(this.width, this.height); 

@@ -72,6 +72,8 @@ public class PromediadorImagenBench {
             for (int repeticiones = 1; repeticiones <= nVeces; repeticiones++) {
                 img_avger.splitSubsetsBacktracking(n);
             }
+            
+            
           //  t2 = System.currentTimeMillis();
 
             System.out.println(n+"\t"+ " "+ img_avger.zncc() );
