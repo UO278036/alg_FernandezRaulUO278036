@@ -10,13 +10,15 @@ public class PromediadorImagen {
 	private Imagen real_img, bad_img; // para almacenar las imagenes con patron bueno y malo (negativo del malo)
 	private Imagen avg_img, half1_img, half2_img; // para almacenar los promedios del subconjunto 1 y 2
 	private Imagen[] dataset; // almacena el conjunto de de imagenes generadas (buenas y malas)
-	private int[] sol; // array que determina donde poner las imágenes 0->no asignada, 1->primer subconjunto, 2->segundo subconjunto
-	private int[] bestSol; // mejor solución
+	public int[] sol; // array que determina donde poner las imágenes 0->no asignada, 1->primer subconjunto, 2->segundo subconjunto
+	public int[] bestSol; // mejor solución
 	private int width, height; // ancho y alto de las imágenes
 	//backtracking variables
 	private int counter; // contador de nodos en el arbol implícito
 	private double max_zncc; // donde almacenar el ZNCC final
-	
+	private int counter0 = 0;
+	private int counter1 = 0;
+	private int counter2 = 0;
 	/** Constructor
 	* @real_path  ruta del modelo de imagen "buena" (patrón a encontrar) en disco
 	* @bad_path  ruta del modelo de imagen "mala"
@@ -195,7 +197,7 @@ public class PromediadorImagen {
 	 * @max_unbalancing: (condición de poda) determina la diferencia máxima en el número de imágenes
 	 *                   entre los dos subconjuntos              
 	 */
-    private void recursivoBactrackingPoda(int nivel, int balanceo, int nrama1, int nrama2, int nrama3) {
+    private void recursivoBactrackingPoda(int nivel, int balanceo) {
         if (nivel == dataset.length) {
             Imagen grupo1P = new Imagen(width, height);
             Imagen grupo2P = new Imagen(width, height);
@@ -218,27 +220,37 @@ public class PromediadorImagen {
             avg_img.addSignal(half1_img);
             avg_img.addSignal(half2_img);
         } else {
-            if (Math.abs(nrama1 - nrama2) < balanceo && Math.abs(nrama3 - nrama1) < balanceo) {
-                sol[nivel] = 0;
-                counter++;
-                recursivoBactrackingPoda(nivel + 1, balanceo, nrama1 + 1, nrama2, nrama3);
-            } if (Math.abs(nrama3 - nrama2) < balanceo) {
-                sol[nivel] = 1;
-                counter++;
-                recursivoBactrackingPoda(nivel + 1, balanceo, nrama1, nrama2 + 1, nrama3);
+        	sol[nivel] = 0;
+            counter0++;
+            if (Math.abs(counter2-counter1) <= balanceo && counter0 <= 3){
+            	recursivoBactrackingPoda(nivel + 1, balanceo);
             }
+            counter0--;
+
+            sol[nivel] = 1;
+            counter1++;
+            if (Math.abs(counter2-counter1) <= balanceo && counter0 <= 3){
+            	recursivoBactrackingPoda(nivel + 1, balanceo);
+            }
+            counter1--;
+
             sol[nivel] = 2;
-            counter++;
-            recursivoBactrackingPoda(nivel + 1, balanceo, nrama1, nrama2, nrama3 + 1);
-            nivel = nivel + 1;
-            recursivoBactrackingPoda(nivel, balanceo, nrama1, nrama2, nrama3);
+            counter2++;
+            if (Math.abs(counter2-counter1) <= balanceo && counter0 <= 3){
+            	recursivoBactrackingPoda(nivel + 1, balanceo);
+            }
+            counter2--;
         }
     }
+    
+    
+    
+    
     
     public void splitSubsetsBacktracking(int max_unbalancing) {
         counter = 1;
         max_zncc = 0;
-        recursivoBactrackingPoda(0, max_unbalancing, 0, 0, 0);
+        recursivoBactrackingPoda(0, 1);
     }
 
 
@@ -256,5 +268,7 @@ public class PromediadorImagen {
 		// TODO Auto-generated method stub
 		
 	}
+
+
 
 }

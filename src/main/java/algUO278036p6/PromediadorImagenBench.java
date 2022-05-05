@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 
 
 
+
 public class PromediadorImagenBench {
 	
 	// Ajustes del banco de pruebas
@@ -12,7 +13,8 @@ public class PromediadorImagenBench {
 	private static String BAD_IMG =  "target/einstein_1_256.png";
 	private static String OUT_DIR_G =  "target/out_g/";
 	private static String OUT_DIR_B =  "target/out_bt";
-	private static int N_IMGS = 13; 
+	//ASIGNAMOS NUMERO DE IMAGENES A 8
+	private static int N_IMGS = 8; 
 	private static double PORCENTAJE_BAD = 25; // %
 	private static double S_NOISE = 5.0; // Nivel de ruido - desvición estándar de una distrubución Gaussiana
 		
@@ -52,26 +54,31 @@ public class PromediadorImagenBench {
 //	}
 	
 	public static void main(String[] arg) {
-        long t1, t2;
         int nVeces = Integer.parseInt(arg[0]);
         int n_real, n_bad;
         PromediadorImagen img_avger;
-        System.out.println("N\tTiempo\tZNCC");
-        for (int n = 2; n <= 1_000; n++) {
+        System.out.println("Soluciones\tZNCC");
+        for (int n = 7; n <= 8; n++) {
 
             n_bad = (int) ((PORCENTAJE_BAD/100.)*n);
             n_real = n - n_bad;
 
+           
+            
             img_avger = new PromediadorImagen(REAL_IMG, BAD_IMG, n_real, n_bad, S_NOISE);
             img_avger.splitSubsetsGreedy(N_IMGS);
-            t1 = System.currentTimeMillis();
+        //    t1 = System.currentTimeMillis();
 
             for (int repeticiones = 1; repeticiones <= nVeces; repeticiones++) {
-                img_avger.splitSubsetsGreedy(n);
+                img_avger.splitSubsetsBacktracking(n);
             }
-            t2 = System.currentTimeMillis();
+          //  t2 = System.currentTimeMillis();
 
-            System.out.println(n+"\t"+(t2-t1)+"\t"+img_avger.zncc());
+            System.out.println(n+"\t"+ " "+ img_avger.zncc() );
+            for(int i=0; i<img_avger.bestSol.length; i++) {
+            	System.out.print(img_avger.bestSol[i]+ " ");    	
+            }
+          
 
         }
     }
