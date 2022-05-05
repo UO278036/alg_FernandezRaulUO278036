@@ -13,7 +13,7 @@ public abstract class Node implements Comparable<Node> {
     protected int depth; //Number of moves made so far (is equal to the number of nodes developed) on this branch
     protected UUID parentID; //Parent ID for node tracking
     protected UUID ID; //ID for the node
-    protected int heuristicValue; //Value of the calculated heuristic
+    protected double heuristicValue; //Value of the calculated heuristic
 
     /**
      * Constructor for Node objects
@@ -24,7 +24,6 @@ public abstract class Node implements Comparable<Node> {
     	ID = UUID.randomUUID();
 	}
 	
-
 	/**
 	 * Getter for depth
 	 * @return The depth variable
@@ -35,7 +34,7 @@ public abstract class Node implements Comparable<Node> {
      * Getter for heuristicValue
      * @return The heuristicValue variable
      */
-	public int getHeuristicValue() { return heuristicValue; }
+	public double getHeuristicValue() { return heuristicValue; }
 	
 	/**
 	 * Compares whether two nodes are equal using the ToString method
@@ -74,8 +73,8 @@ public abstract class Node implements Comparable<Node> {
     
 	@Override
 	public int compareTo(Node node) { //BRANCHING METHOD
-		int totalValue = heuristicValue;
-		int totalValueToBeCompared = node.getHeuristicValue();
+		double totalValue = heuristicValue;
+		double totalValueToBeCompared = node.getHeuristicValue();
 		
 		if (totalValue > totalValueToBeCompared) return 1; //this has less priority (is bigger)
 		else if (totalValue == totalValueToBeCompared) return 0; //The same priority

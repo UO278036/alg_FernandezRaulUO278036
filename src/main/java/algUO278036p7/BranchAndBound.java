@@ -2,21 +2,19 @@ package algUO278036p7;
 
 import java.util.ArrayList;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Main class to solve problems using the Branch and Bound technique
  * We need to extend it for any specific problem
  * @author viceg
  */
 public abstract class BranchAndBound {
-	private static Logger log = LoggerFactory.getLogger(BranchAndBound.class);
+	//private static Logger log = LoggerFactory.getLogger(BranchAndBound.class);
 	protected Heap ds; //Nodes to be explored (not used nodes)
 	protected Node bestNode; //To save the final node of the best solution
 	protected Node rootNode; //Initial node
-	protected int pruneLimit; //To prune nodes above this value
-	       
+	protected double pruneLimit; //To prune nodes above this value
+	protected int counterBnB;
+	
 	/**
 	 * Constructor for BrancAndBount objects
 	 */
@@ -29,6 +27,7 @@ public abstract class BranchAndBound {
 	 * @param rootNode Starting state of the problem
 	 */
 	public void branchAndBound(Node rootNode) { 
+		counterBnB++;
 		ds.insert(rootNode); //First node to be explored
 	
 		pruneLimit = rootNode.initialValuePruneLimit();
@@ -37,10 +36,10 @@ public abstract class BranchAndBound {
 			Node node = ds.extractBestNode();	
 			
 			ArrayList<Node> children = node.expand(); 
-			
-			for (Node child : children)
+			this.counterBnB += children.size();
+			for (Node child : children) {
 				if (child.isSolution()) {
-					int cost = child.getHeuristicValue();
+					double cost = child.getHeuristicValue();
 					if (cost < pruneLimit) {
 						pruneLimit = cost;
 						bestNode = child;
@@ -50,6 +49,7 @@ public abstract class BranchAndBound {
 					if (child.getHeuristicValue() < pruneLimit) {
 						ds.insert(child);
 					}
+			}
 		} //while
 	}
 		
@@ -72,24 +72,24 @@ public abstract class BranchAndBound {
     /**
      * Prints the solution from the root node to the best node
      */
-    public void printSolutionTrace() {
-    	if (bestNode == null) {
-			log.debug("Original:");
-			log.debug(rootNode.toString());
-    		log.debug("THERE IS NO SOLUTION");
-    	} 
-    	else {
-    		//Extract the path of the used nodes from bestNode to the rootNode
-            ArrayList<Node> result = ds.extractUsedNodesFrom(bestNode);
-
-            for (int i = 0; i < result.size();  i++) {
-    			if (i == 0) 
-    				log.debug("Original:");
-    			else 
-    				log.debug("Step " + i + ":");
-				log.debug(result.get(result.size()-i-1).toString());
-    	    }
-            log.debug("\nSolution with " + bestNode.getDepth() + " step(s).");	
-    	}
-    }
+//    public void printSolutionTrace() {
+//    	if (bestNode == null) {
+//			log.debug("Original:");
+//			log.debug(rootNode.toString());
+//    		log.debug("THERE IS NO SOLUTION");
+//    	} 
+//    	else {
+//    		//Extract the path of the used nodes from bestNode to the rootNode
+//            ArrayList<Node> result = ds.extractUsedNodesFrom(bestNode);
+//
+//            for (int i = 0; i < result.size();  i++) {
+//    			if (i == 0) 
+//    				log.debug("Original:");
+//    			else 
+//    				log.debug("Step " + i + ":");
+//				log.debug(result.get(result.size()-i-1).toString());
+//    	    }
+//            log.debug("\nSolution with " + bestNode.getDepth() + " step(s).");	
+//    	}
+//    }
 }

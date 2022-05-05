@@ -252,4 +252,9 @@ public class PromediadorImagen {
 		recursivoBactracking(nivel);	
 	}
 
+	public void branchAndBoundMethod() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
