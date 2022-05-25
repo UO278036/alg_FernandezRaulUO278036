@@ -162,9 +162,7 @@ public class PromediadorImagen {
         if (nivel == dataset.length) {
             Imagen grupo1P = new Imagen(width, height);
             Imagen grupo2P = new Imagen(width, height);
-            Random r = new Random();
             for (int i = 0; i < sol.length; i++) {
-                sol[i] = r.nextInt(3);
                 if (sol[i] == 1) {
                     grupo1P.addSignal(this.dataset[i]);
                 }
@@ -199,13 +197,11 @@ public class PromediadorImagen {
 	 * @max_unbalancing: (condición de poda) determina la diferencia máxima en el número de imágenes
 	 *                   entre los dos subconjuntos              
 	 */
-    private void recursivoBactrackingPoda(int nivel, int balanceo) {
+    private void recursivoBactrackingPoda(int nivel, int balanceo, int nrama1, int nrama2, int nrama3) {
         if (nivel == dataset.length) {
             Imagen grupo1P = new Imagen(width, height);
             Imagen grupo2P = new Imagen(width, height);
-            Random r = new Random();
             for (int i = 0; i < sol.length; i++) {
-                sol[i] = r.nextInt(3);
                 if (sol[i] == 1) {
                     grupo1P.addSignal(this.dataset[i]);
                 }
@@ -222,28 +218,23 @@ public class PromediadorImagen {
             avg_img.addSignal(half1_img);
             avg_img.addSignal(half2_img);
         } else {
-        	sol[nivel] = 0;
-            counter0++;
-            if (Math.abs(counter2-counter1) <= balanceo && counter0 <= 3){
-            	recursivoBactrackingPoda(nivel + 1, balanceo);
+            if (Math.abs(nrama1 - nrama2) < balanceo && Math.abs(nrama3 - nrama1) < balanceo) {
+                sol[nivel] = 0;
+                counter++;
+                recursivoBactrackingPoda(nivel + 1, balanceo, nrama1 + 1, nrama2, nrama3);
+            } if (Math.abs(nrama3 - nrama2) < balanceo) {
+                sol[nivel] = 1;
+                counter++;
+                recursivoBactrackingPoda(nivel + 1, balanceo, nrama1, nrama2 + 1, nrama3);
             }
-            counter0--;
-
-            sol[nivel] = 1;
-            counter1++;
-            if (Math.abs(counter2-counter1) <= balanceo && counter0 <= 3){
-            	recursivoBactrackingPoda(nivel + 1, balanceo);
-            }
-            counter1--;
-
             sol[nivel] = 2;
-            counter2++;
-            if (Math.abs(counter2-counter1) <= balanceo && counter0 <= 3){
-            	recursivoBactrackingPoda(nivel + 1, balanceo);
-            }
-            counter2--;
+            counter++;
+            recursivoBactrackingPoda(nivel + 1, balanceo, nrama1, nrama2, nrama3 + 1);
+            nivel = nivel + 1;
+            recursivoBactrackingPoda(nivel, balanceo, nrama1, nrama2, nrama3);
         }
     }
+    
     
     
     
@@ -252,7 +243,7 @@ public class PromediadorImagen {
     public void splitSubsetsBacktracking(int max_unbalancing) {
         counter = 1;
         max_zncc = 0;
-        recursivoBactrackingPoda(0, 1);
+        recursivoBactrackingPoda(0, max_unbalancing,0,0,0);
     }
 
 
