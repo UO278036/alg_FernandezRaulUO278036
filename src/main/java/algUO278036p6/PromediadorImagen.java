@@ -162,6 +162,7 @@ public class PromediadorImagen {
         if (nivel == dataset.length) {
             Imagen grupo1P = new Imagen(width, height);
             Imagen grupo2P = new Imagen(width, height);
+            
             for (int i = 0; i < sol.length; i++) {
                 if (sol[i] == 1) {
                     grupo1P.addSignal(this.dataset[i]);
@@ -201,6 +202,7 @@ public class PromediadorImagen {
         if (nivel == dataset.length) {
             Imagen grupo1P = new Imagen(width, height);
             Imagen grupo2P = new Imagen(width, height);
+            
             for (int i = 0; i < sol.length; i++) {
                 if (sol[i] == 1) {
                     grupo1P.addSignal(this.dataset[i]);
@@ -230,8 +232,6 @@ public class PromediadorImagen {
             sol[nivel] = 2;
             counter++;
             recursivoBactrackingPoda(nivel + 1, balanceo, nrama1, nrama2, nrama3 + 1);
-            nivel = nivel + 1;
-            recursivoBactrackingPoda(nivel, balanceo, nrama1, nrama2, nrama3);
         }
     }
     

@@ -69,9 +69,9 @@ public class PromediadorImagenBench {
             img_avger.splitSubsetsGreedy(N_IMGS);
         //    t1 = System.currentTimeMillis();
 
-            for (int repeticiones = 1; repeticiones <= nVeces; repeticiones++) {
-                img_avger.splitSubsetsBacktracking(n);
-            }
+           
+            img_avger.splitSubsetsBacktracking(n);
+            
             
             
           //  t2 = System.currentTimeMillis();
