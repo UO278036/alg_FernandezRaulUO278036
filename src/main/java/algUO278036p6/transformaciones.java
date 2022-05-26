@@ -25,7 +25,7 @@ public class transformaciones {
 	}
 	
 	private static  void backtracking(int a, int b, int nivel) {
-		if( a == b || nivel ==k) {
+		if( a == b || nivel ==k) {   
 			if( a ==  b) {
 				for (int i= 0; i<nivel;i++) {
 					if(solucion[i] == 0)
